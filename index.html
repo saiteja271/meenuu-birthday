@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#160d1f" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="A little birthday universe made with love by Sai Teja for Ammu, Meena and Buuchiii. November 8th."
+    />
+    <title>Happy Birthday, Ammu 🎂 — From Sai Teja</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="app" id="app">
+      <canvas class="starfield" id="starfield" aria-hidden="true"></canvas>
+      <div class="ambient" aria-hidden="true">
+        <span class="ambient__orb ambient__orb--rose"></span>
+        <span class="ambient__orb ambient__orb--gold"></span>
+        <span class="ambient__orb ambient__orb--plum"></span>
+      </div>
+
+      <button
+        class="mute-btn"
+        id="muteBtn"
+        type="button"
+        aria-label="Start music"
+        aria-pressed="false"
+        title="Music on / off"
+      >
+        <span aria-hidden="true">🎵</span>
+      </button>
+
+      <main class="stage" id="stage">
+        <!-- ========================= 0 · THE SECRET LOCK ========================= -->
+        <section class="screen screen--lock is-active" id="screen-lock" data-screen="lock" aria-label="A secret birthday lock for Ammu">
+          <div class="wrap lock-wrap">
+            <div class="lock-locked" id="lockLocked">
+              <p class="eyebrow">A secret, only for Ammu</p>
+
+              <div class="padlock" id="padlock" aria-hidden="true">
+                <span class="padlock__halo"></span>
+                <span class="padlock__shackle"></span>
+                <span class="padlock__body">
+                  <span class="padlock__heart">♥</span>
+                  <span class="padlock__keyhole"></span>
+                </span>
+                <span class="padlock__spark padlock__spark--1">✦</span>
+                <span class="padlock__spark padlock__spark--2">✧</span>
+                <span class="padlock__spark padlock__spark--3">✦</span>
+              </div>
+
+              <h2 class="lock-title">Only you can open this, <em>Buuchiii</em></h2>
+              <p class="lede lock-lede">
+                Two little dates hold the key to your surprise. Enter one of them, Ammu.
+              </p>
+
+              <div class="pin-display" id="pinDots" aria-label="Four digit secret code">
+                <span></span><span></span><span></span><span></span>
+              </div>
+
+              <p class="lock-message" id="lockMessage" aria-live="polite">
+                Hint: Enter one of your special dates as the 4-digit code
+              </p>
+              <p class="lock-bypass">
+                <a href="#" class="bypass-link" aria-label="Bypass lock code entry">Can't wait? Peek inside right now ❤️</a>
+              </p>
+
+              <div class="keypad" id="keypad" role="group" aria-label="Secret code keypad">
+                <button class="keypad__key" type="button" data-key="1">1</button>
+                <button class="keypad__key" type="button" data-key="2">2</button>
+                <button class="keypad__key" type="button" data-key="3">3</button>
+                <button class="keypad__key" type="button" data-key="4">4</button>
+                <button class="keypad__key" type="button" data-key="5">5</button>
+                <button class="keypad__key" type="button" data-key="6">6</button>
+                <button class="keypad__key" type="button" data-key="7">7</button>
+                <button class="keypad__key" type="button" data-key="8">8</button>
+                <button class="keypad__key" type="button" data-key="9">9</button>
+                <button class="keypad__key keypad__key--soft" type="button" data-key="clear" aria-label="Clear code">⌫</button>
+                <button class="keypad__key" type="button" data-key="0">0</button>
+                <button class="keypad__key keypad__key--heart" type="button" data-key="enter" aria-label="Unlock the surprise">♥</button>
+              </div>
+
+              <p class="lock-foot">Made with a panda, a puppy, and a lot of love 🐼🐶</p>
+            </div>
+
+            <div class="lock-unlocked" id="lockUnlocked" hidden>
+              <p class="eyebrow">Unlocked by you • Just like my heart</p>
+              <div class="unlock-badge" aria-hidden="true">🗝️</div>
+              <h2 class="unlock-title">Ee little universe is open, <em>Ammu</em></h2>
+              <p class="lede">The countdown to your day has already started. But first... a tiny peek?</p>
+
+              <div class="countdown-card">
+                <p class="countdown-card__label">Until November 8 • Your day</p>
+                <div class="countdown" id="countdown" role="timer" aria-live="off">
+                  <div class="countdown__cell"><span class="countdown__num" id="cdDays">00</span><span class="countdown__unit">Days</span></div>
+                  <div class="countdown__cell"><span class="countdown__num" id="cdHours">00</span><span class="countdown__unit">Hours</span></div>
+                  <div class="countdown__cell"><span class="countdown__num" id="cdMins">00</span><span class="countdown__unit">Mins</span></div>
+                  <div class="countdown__cell"><span class="countdown__num" id="cdSecs">00</span><span class="countdown__unit">Secs</span></div>
+                </div>
+                <p class="countdown-card__sub" id="countdownSub">Every second brings me closer to celebrating you.</p>
+              </div>
+
+              <button class="next-btn peek-btn" id="peekInside" type="button">
+                ✨ Can't Wait? Peek Inside, Ammu! ✨
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================ 1 · HERO ============================ -->
+        <section class="screen screen--hero" id="screen-hero" data-screen="hero" aria-label="Birthday surprise landing">
+          <div class="floaters" aria-hidden="true">
+            <span style="--x: 7%; --d: 0s; --s: 13px; --dur: 12s">♥</span>
+            <span style="--x: 23%; --d: 2.1s; --s: 9px; --dur: 15s">♥</span>
+            <span style="--x: 46%; --d: 5.4s; --s: 11px; --dur: 13s">♥</span>
+            <span style="--x: 71%; --d: 1.4s; --s: 8px; --dur: 16s">♥</span>
+            <span style="--x: 88%; --d: 3.8s; --s: 14px; --dur: 14s">♥</span>
+          </div>
+
+          <div class="wrap hero-wrap">
+            <ul class="badges" aria-label="Our important dates">
+              <li class="badge"><span class="badge__dot badge__dot--rose" aria-hidden="true"></span>Aug 8, 2026 • Started</li>
+              <li class="badge"><span class="badge__dot badge__dot--gold" aria-hidden="true"></span>Aug 12, 2026 • Committed</li>
+              <li class="badge"><span class="badge__dot badge__dot--pink" aria-hidden="true"></span>Nov 8 • Birthday</li>
+            </ul>
+
+            <div class="hero-portrait-wrap">
+              <span class="hero-halo hero-halo--outer" aria-hidden="true"></span>
+              <span class="hero-halo hero-halo--inner" aria-hidden="true"></span>
+              <span class="queen-chip">👑 Birthday Queen</span>
+              <div class="hero-portrait">
+                <img
+                  src="photos/meena.jpeg"
+                  alt="Ammu smiling in a black and white dupatta with the green Kondaveedu hills behind her"
+                  width="960"
+                  height="1280"
+                  fetchpriority="high"
+                  draggable="false"
+                />
+              </div>
+              <span class="hero-mascot hero-mascot--panda" aria-hidden="true">🐼</span>
+              <span class="hero-mascot hero-mascot--puppy" aria-hidden="true">🐶</span>
+              <span class="hero-orbit hero-orbit--1" aria-hidden="true">✦</span>
+              <span class="hero-orbit hero-orbit--2" aria-hidden="true">♥</span>
+              <span class="hero-orbit hero-orbit--3" aria-hidden="true">✦</span>
+            </div>
+
+            <p class="hero-kicker">For the girl who makes ordinary days magical</p>
+
+            <h1 class="hero-title">
+              <span class="hero-title__small">Happy Birthday</span>
+              <span class="hero-title__name">Meenakshi</span>
+            </h1>
+
+            <p class="hero-sub">
+              Naa Pranam Ammu — my sweet Meena, my cute little Buuchiii. This whole little universe is yours today.
+            </p>
+
+            <div class="mascot-card">
+              <div class="mascot-card__faces" aria-hidden="true">
+                <span class="mascot-face mascot-face--panda">🐼</span>
+                <span class="mascot-face mascot-face--puppy">🐶</span>
+              </div>
+              <p class="mascot-question">Are you excited for what's next, Buuchiii?</p>
+              <div class="mascot-actions" id="dodgeZone">
+                <button class="next-btn mascot-yes" id="heroYes" type="button">Yes, show me ✨</button>
+                <button class="ghost-btn dodge-btn" id="dodgeNo" type="button">No 🙈</button>
+              </div>
+              <p class="mascot-tease" id="dodgeTease" aria-live="polite"></p>
+            </div>
+
+            <p class="hint">Our story: August 8 → August 12 → forever 💛</p>
+          </div>
+        </section>
+
+        <!-- =========================== 2 · BALLOONS =========================== -->
+        <section class="screen" id="screen-balloons" data-screen="balloons" aria-label="Pop the birthday balloons">
+          <div class="wrap">
+            <header class="head">
+              <p class="eyebrow">Little game • For Ammu</p>
+              <h2>Pop the Birthday Balloons, Ammu! 🎈</h2>
+              <p class="lede">Four floating balloons, four little words. Tap each one slowly, Buuchiii — let the magic spill out.</p>
+            </header>
+
+            <div class="balloon-grid" id="balloonGrid">
+              <button class="balloon-slot" type="button" data-word="You" aria-label="Pop balloon one">
+                <span class="balloon" aria-hidden="true">
+                  <span class="balloon__body"></span>
+                  <span class="balloon__knot"></span>
+                  <span class="balloon__string"></span>
+                  <span class="balloon__burst"></span>
+                </span>
+                <span class="word">You</span>
+              </button>
+
+              <button class="balloon-slot" type="button" data-word="are" aria-label="Pop balloon two">
+                <span class="balloon" aria-hidden="true">
+                  <span class="balloon__body"></span>
+                  <span class="balloon__knot"></span>
+                  <span class="balloon__string"></span>
+                  <span class="balloon__burst"></span>
+                </span>
+                <span class="word">are</span>
+              </button>
+
+              <button class="balloon-slot" type="button" data-word="my" aria-label="Pop balloon three">
+                <span class="balloon" aria-hidden="true">
+                  <span class="balloon__body"></span>
+                  <span class="balloon__knot"></span>
+                  <span class="balloon__string"></span>
+                  <span class="balloon__burst"></span>
+                </span>
+                <span class="word">my</span>
+              </button>
+
+              <button class="balloon-slot" type="button" data-word="love" aria-label="Pop balloon four">
+                <span class="balloon" aria-hidden="true">
+                  <span class="balloon__body"></span>
+                  <span class="balloon__knot"></span>
+                  <span class="balloon__string"></span>
+                  <span class="balloon__burst"></span>
+                </span>
+                <span class="word">love</span>
+              </button>
+            </div>
+
+            <p class="pop-progress" id="popProgress">4 balloons waiting for you 🎈</p>
+
+            <div class="banner" id="loveBanner" hidden>
+              <p class="banner__big">You are my love, Buuchiii! ❤️</p>
+              <p class="banner__small">Forever Yours, Sai Teja</p>
+            </div>
+
+            <button class="next-btn" id="toCake" type="button" hidden>Tap to Continue 🎂</button>
+          </div>
+        </section>
+
+        <!-- ============================= 3 · CAKE ============================= -->
+        <section class="screen" id="screen-cake" data-screen="cake" aria-label="Birthday cake">
+          <div class="wrap">
+            <header class="head">
+              <p class="eyebrow">Make a wish • For Meena</p>
+              <h2>Make a Wish &amp; Blow the Candles, Meena! 🎂</h2>
+              <p class="lede">Three little flames, one big wish. Blow gently into your mic — or simply tap the candles.</p>
+            </header>
+
+            <div class="cake-stage">
+              <div class="companion companion--panda" aria-hidden="true">
+                <span class="companion__hat">🎉</span>
+                <span class="companion__face">🐼</span>
+              </div>
+              <div class="companion companion--puppy" aria-hidden="true">
+                <span class="companion__hat">🎉</span>
+                <span class="companion__face">🐶</span>
+              </div>
+
+              <div class="cake" id="cake">
+                <button class="candles" id="candles" type="button" aria-label="Blow out the three candles">
+                  <span class="candle"><span class="flame"></span><span class="smoke"></span></span>
+                  <span class="candle candle--mid"><span class="flame"></span><span class="smoke"></span></span>
+                  <span class="candle"><span class="flame"></span><span class="smoke"></span></span>
+                </button>
+
+                <span class="cake-cut-face" aria-hidden="true"></span>
+
+                <div class="cake-stack">
+                  <div class="tier tier--top" aria-hidden="true">
+                    <span class="tier__shine"></span>
+                    <span class="tier__berry tier__berry--1"></span>
+                    <span class="tier__berry tier__berry--2"></span>
+                    <span class="tier__berry tier__berry--3"></span>
+                  </div>
+                  <div class="tier tier--mid" aria-hidden="true">
+                    <span class="tier__shine"></span>
+                    <span class="tier__berry tier__berry--4"></span>
+                    <span class="tier__berry tier__berry--5"></span>
+                    <span class="tier__berry tier__berry--6"></span>
+                  </div>
+                  <div class="tier tier--bottom" aria-hidden="true">
+                    <span class="tier__shine"></span>
+                    <span class="tier__berry tier__berry--7"></span>
+                    <span class="tier__berry tier__berry--8"></span>
+                    <span class="tier__berry tier__berry--9"></span>
+                  </div>
+                </div>
+
+                <div class="plate" aria-hidden="true"></div>
+                <div class="slice" aria-hidden="true">
+                  <span class="slice__cream"></span>
+                  <span class="slice__berry"></span>
+                </div>
+              </div>
+            </div>
+
+            <p class="mic-status" id="micStatus" aria-live="polite">
+              🎤 Mic ready when you are — or tap the candles to blow them out.
+            </p>
+
+            <button class="action-btn" id="blowBtn" type="button">🌬️ Blow Air into Mic or Tap Candles</button>
+            <button class="action-btn action-btn--gold" id="cutBtn" type="button" hidden>🔪 Cut the Cake &amp; Feed Buuchiii</button>
+
+            <p class="feeding-note" id="feedingNote" hidden>
+              Ee first sweet cake piece neeke Ammu — naa chethitho neeku tinipistunna. Thana notlo pettinattu, konchem
+              sweet ga tinesthu! Happy Birthday my love! 😋🍰
+            </p>
+
+            <button class="next-btn" id="toRoses" type="button" hidden>Now, Some Roses for You 🌹</button>
+          </div>
+        </section>
+
+        <!-- ============================= 4 · ROSES ============================= -->
+        <section class="screen" id="screen-roses" data-screen="roses" aria-label="A bouquet of roses and love notes">
+          <div class="wrap">
+            <header class="head">
+              <p class="eyebrow">Six little love notes • For Buuchiii</p>
+              <h2>Naa Heart Full of Roses, Just for You 🌹</h2>
+              <p class="lede">Tap the velvet bouquet, Ammu. Every rose is hiding a little something I want you to read.</p>
+            </header>
+
+            <div class="bouquet-stage">
+              <button class="bouquet" id="bouquet" type="button" aria-label="Tap the rose bouquet to bloom six love notes">
+                <span class="bouquet__glow" aria-hidden="true"></span>
+                <span class="bouquet__stems" aria-hidden="true">
+                  <span class="stem" style="--rot: -26deg; --h: 138px"></span>
+                  <span class="stem" style="--rot: -15deg; --h: 160px"></span>
+                  <span class="stem" style="--rot: -5deg; --h: 176px"></span>
+                  <span class="stem" style="--rot: 6deg; --h: 168px"></span>
+                  <span class="stem" style="--rot: 17deg; --h: 150px"></span>
+                  <span class="stem" style="--rot: 28deg; --h: 132px"></span>
+                  <span class="leaf leaf--1" aria-hidden="true"></span>
+                  <span class="leaf leaf--2" aria-hidden="true"></span>
+                  <span class="leaf leaf--3" aria-hidden="true"></span>
+                </span>
+
+                <span class="rose" style="--x: 50%; --y: 2%; --r: 6deg; --s: 1.05"><span class="rose__head"></span></span>
+                <span class="rose" style="--x: 26%; --y: 8%; --r: -18deg; --s: 0.95"><span class="rose__head"></span></span>
+                <span class="rose" style="--x: 73%; --y: 11%; --r: 17deg; --s: 0.9"><span class="rose__head"></span></span>
+                <span class="rose" style="--x: 12%; --y: 27%; --r: -26deg; --s: 0.82"><span class="rose__head"></span></span>
+                <span class="rose" style="--x: 87%; --y: 29%; --r: 24deg; --s: 0.8"><span class="rose__head"></span></span>
+                <span class="rose" style="--x: 50%; --y: 27%; --r: 4deg; --s: 0.92"><span class="rose__head"></span></span>
+
+                <span class="bouquet__wrap" aria-hidden="true">
+                  <span class="bouquet__ribbon"></span>
+                </span>
+                <span class="bouquet__spark bouquet__spark--1" aria-hidden="true">✦</span>
+                <span class="bouquet__spark bouquet__spark--2" aria-hidden="true">✧</span>
+                <span class="bouquet__spark bouquet__spark--3" aria-hidden="true">✦</span>
+              </button>
+              <p class="bouquet-hint" id="bouquetHint">Tap the roses, Meena 🌹</p>
+            </div>
+
+            <div class="notes-grid" id="loveNotes" aria-live="polite"></div>
+
+            <button class="next-btn" id="toScratch" type="button" hidden>Scratch a Little Secret ✨</button>
+          </div>
+        </section>
+
+        <!-- ========================== 5 · SCRATCH CARD ========================== -->
+        <section class="screen" id="screen-scratch" data-screen="scratch" aria-label="A golden scratch card">
+          <div class="wrap">
+            <header class="head">
+              <p class="eyebrow">A secret under gold • For Ammu</p>
+              <h2>Scratch the Gold, Buuchiii ✨</h2>
+              <p class="lede">Use your finger to scratch the golden foil. Something I really mean is hiding underneath.</p>
+            </header>
+
+            <div class="scratch-card" id="scratchCard">
+              <div class="scratch-reveal" id="scratchReveal">
+                <img
+                  src="photos/meena.jpeg"
+                  alt="Ammu smiling in the green hills, waiting under the golden scratch card"
+                  width="960"
+                  height="1280"
+                  loading="lazy"
+                  draggable="false"
+                />
+                <div class="scratch-reveal__shade"></div>
+                <div class="scratch-message">
+                  <span class="scratch-message__kicker">A secret just for you</span>
+                  <strong>YOU ARE MY<br />WHOLE WORLD,<br />BUUCHIII! ❤️</strong>
+                </div>
+              </div>
+              <canvas id="scratchCanvas" aria-label="Golden scratch foil. Scratch with your finger to reveal a secret."></canvas>
+            </div>
+
+            <p class="scratch-hint" id="scratchHint">Scratch with your finger, Ammu — no rush 💛</p>
+            <button class="ghost-btn scratch-skip" id="scratchSkip" type="button">Or tap here to peek ✨</button>
+            <button class="next-btn" id="toGallery" type="button" hidden>See Our Precious Photos 📸</button>
+          </div>
+        </section>
+
+        <!-- ============================ 6 · GALLERY ============================ -->
+        <section class="screen" id="screen-gallery" data-screen="gallery" aria-label="Our photo gallery">
+          <div class="wrap">
+            <header class="head">
+              <p class="eyebrow">Photo diary • For Ammu</p>
+              <h2>Every Picture Tells Our Story, Ammu 📸</h2>
+              <p class="lede">Tap any polaroid, Meena — the date, the place, and the whole little story are waiting inside.</p>
+            </header>
+
+            <div class="gallery" id="gallery"></div>
+
+            <p class="hint">Ten little windows into our world 💛</p>
+
+            <button class="next-btn" id="toMoments" type="button">Relive Our Sacred Journey ✨</button>
+          </div>
+        </section>
+
+        <!-- ============================ 7 · MOMENTS ============================ -->
+        <section class="screen" id="screen-moments" data-screen="moments" aria-label="Our special moments and sacred journeys">
+          <div class="wrap">
+            <header class="head">
+              <p class="eyebrow">Every little thing • For Buuchiii</p>
+              <h2>Our Sacred Journeys &amp; Little Moments 🛕🌊🌾</h2>
+              <p class="lede">From the first spark to every temple, hill, bus window and field — tap a chapter to relive it.</p>
+            </header>
+
+            <div class="timeline" id="moments"></div>
+
+            <button class="next-btn" id="toLanterns" type="button">Release a Wish Into the Sky 🕯️</button>
+          </div>
+        </section>
+
+        <!-- =========================== 8 · LANTERNS =========================== -->
+        <section class="screen" id="screen-lanterns" data-screen="lanterns" aria-label="Release a wish into the sky">
+          <div class="wrap">
+            <header class="head">
+              <p class="eyebrow">Starlight &amp; sky lanterns • For Ammu</p>
+              <h2>Close Your Eyes &amp; Make a Wish, Meena 🕯️</h2>
+              <p class="lede">Some wishes are too big for words. Send one up to the stars — I'll be right here, holding your hand.</p>
+            </header>
+
+            <div class="lantern-scene" id="lanternScene">
+              <span class="lantern-moon" aria-hidden="true"></span>
+              <span class="lantern-star lantern-star--1" aria-hidden="true"></span>
+              <span class="lantern-star lantern-star--2" aria-hidden="true"></span>
+              <span class="lantern-star lantern-star--3" aria-hidden="true"></span>
+              <span class="lantern-star lantern-star--4" aria-hidden="true"></span>
+              <span class="lantern-star lantern-star--5" aria-hidden="true"></span>
+              <span class="lantern-star lantern-star--6" aria-hidden="true"></span>
+              <span class="lantern-hill lantern-hill--far" aria-hidden="true"></span>
+              <span class="lantern-hill lantern-hill--near" aria-hidden="true"></span>
+              <span class="lantern-glow" aria-hidden="true"></span>
+              <div class="lantern-layer" id="lanternLayer" aria-hidden="true"></div>
+              <p class="lantern-scene__note">Naa Pranam, the sky is listening...</p>
+            </div>
+
+            <div class="wish-card" id="wishCard">
+              <p class="wish-card__label">Your wish is in the sky</p>
+              <p class="wish-card__text" id="wishText" aria-live="polite">Tap below when your heart is ready, Ammu.</p>
+            </div>
+
+            <button class="action-btn" id="releaseWish" type="button">🕯️ Release a Wish</button>
+            <button class="next-btn" id="toLetter" type="button" hidden>There's a Letter Waiting 💌</button>
+          </div>
+        </section>
+
+        <!-- ======================== 9 · ENVELOPE & LETTER ======================== -->
+        <section class="screen" id="screen-letter" data-screen="letter" aria-label="A letter from Sai Teja">
+          <div class="wrap">
+            <header class="head">
+              <p class="eyebrow">Sealed with a wax heart • For Ammu</p>
+              <h2>A Letter From My Heart to Yours 💌</h2>
+            </header>
+
+            <div class="letter-stage" id="letterStage">
+              <div class="envelope" id="envelope" aria-hidden="true">
+                <span class="envelope__back"></span>
+                <span class="envelope__letter-peek"></span>
+                <span class="envelope__front"></span>
+                <span class="envelope__flap"></span>
+                <span class="envelope__seal">S<span>♥</span>A</span>
+              </div>
+              <button class="key-btn" id="letterKey" type="button" aria-label="Unlock the letter with the golden key">
+                <span aria-hidden="true">🗝️</span>
+              </button>
+              <p class="letter-hint" id="letterHint">Tap the golden key to open your letter</p>
+            </div>
+
+            <article class="parchment" id="letterPaper" hidden aria-label="Love letter from Sai Teja">
+              <span class="parchment__pin parchment__pin--left" aria-hidden="true">🐼</span>
+              <span class="parchment__pin parchment__pin--right" aria-hidden="true">🐶</span>
+              <div class="letter-text" id="letterText"></div>
+            </article>
+
+            <button class="ghost-btn skip-typing" id="skipTyping" type="button" hidden>Skip typing ⏩</button>
+            <button class="next-btn" id="toGift" type="button" hidden>One Last Surprise 🎁</button>
+          </div>
+        </section>
+
+        <!-- ============================= 10 · GIFT ============================= -->
+        <section class="screen" id="screen-gift" data-screen="gift" aria-label="A final gift box">
+          <div class="wrap">
+            <header class="head">
+              <p class="eyebrow">One last surprise • For Buuchiii</p>
+              <h2>Tap the Gift Box Three Times, Ammu 🎁</h2>
+              <p class="lede">1... 2... 3! With every tap, something inside gets a little more excited to meet you.</p>
+            </header>
+
+            <div class="gift-stage" id="giftStage">
+              <span class="gift-spark gift-spark--1" aria-hidden="true">✦</span>
+              <span class="gift-spark gift-spark--2" aria-hidden="true">✧</span>
+              <span class="gift-spark gift-spark--3" aria-hidden="true">✦</span>
+
+              <div
+                class="gift"
+                id="giftBox"
+                role="button"
+                tabindex="0"
+                aria-label="Tap the gift box three times to open it"
+              >
+                <span class="gift__glow" aria-hidden="true"></span>
+                <span class="gift__heart" aria-hidden="true">♥</span>
+                <span class="gift__bow" aria-hidden="true">
+                  <span class="gift__bow-loop gift__bow-loop--left"></span>
+                  <span class="gift__bow-loop gift__bow-loop--right"></span>
+                  <span class="gift__bow-knot"></span>
+                </span>
+                <span class="gift__lid" aria-hidden="true">
+                  <span class="gift__lid-ribbon"></span>
+                </span>
+                <span class="gift__box" aria-hidden="true">
+                  <span class="gift__ribbon-v"></span>
+                  <span class="gift__ribbon-h"></span>
+                  <span class="gift__shine"></span>
+                </span>
+                <span class="gift__confetti" aria-hidden="true"></span>
+              </div>
+            </div>
+
+            <p class="gift-count" id="giftCount" aria-live="polite">Tap the gift 3 times, Ammu</p>
+
+            <div class="gift-reveal" id="giftReveal" hidden>
+              <p class="gift-reveal__big">Inside is not a thing, Buuchiii — it's a promise. ❤️</p>
+              <p class="gift-reveal__small">
+                Naa forever, nee name tho. Every birthday, every ordinary day, every silly little moment — I choose you.
+              </p>
+            </div>
+
+            <button class="next-btn" id="toFinale" type="button" hidden>Open Your Grand Finale 🎆</button>
+          </div>
+        </section>
+
+        <!-- ============================ 11 · FINALE ============================ -->
+        <section class="screen screen--finale" id="screen-finale" data-screen="finale" aria-label="Grand birthday finale">
+          <div class="wrap finale-wrap">
+            <p class="eyebrow">November 8th • Your day</p>
+            <h2 class="finale-title">
+              Happy Birthday,<br /><span class="finale-name">Ammu</span>
+              <span class="finale-emoji" aria-hidden="true">✦</span>
+            </h2>
+            <p class="finale-sub">Naa Pranam — this whole sky is celebrating you today.</p>
+
+            <div class="timer-card">
+              <p class="timer-card__label">Loving you since August 8, 2026</p>
+              <div class="timer" id="timer" role="timer" aria-live="off">
+                <div class="timer__cell"><span class="timer__num" id="tDays">000</span><span class="timer__unit">Days</span></div>
+                <div class="timer__cell"><span class="timer__num" id="tHours">00</span><span class="timer__unit">Hours</span></div>
+                <div class="timer__cell"><span class="timer__num" id="tMins">00</span><span class="timer__unit">Mins</span></div>
+                <div class="timer__cell"><span class="timer__num" id="tSecs">00</span><span class="timer__unit">Secs</span></div>
+              </div>
+              <p class="commit-badge">💛 Committed on August 12, 2026</p>
+            </div>
+
+            <div class="finale-wish">
+              <p class="finale-wish__panda" aria-hidden="true">🐼 🎂 🐶</p>
+              <p>
+                November 8th — the day my favourite person was born. Ammu, Meena, Buuchiii, nuvvu naa life loki vachina
+                roju nunchi every day feels like a celebration. Ee roju aina special ga undali, anthe naa korika.
+              </p>
+              <p>
+                Keep smiling that smile, keep stealing my food, keep planning our little trips. Nenu eppudu nee
+                pakkane unta. Happy Birthday, Naa Pranam. 🎂❤️
+              </p>
+              <p class="finale-wish__sign">— From Sai Teja, with all my love</p>
+            </div>
+
+            <button class="action-btn action-btn--gold blast-btn" id="blastBtn" type="button">
+              🎉 Blast More Party Poppers &amp; Firecrackers! 🎆
+            </button>
+
+            <p class="finale-foot">Made with ♥, a panda, and a very happy puppy.</p>
+          </div>
+        </section>
+      </main>
+
+      <!-- ============================ MEMORY MODAL ============================ -->
+      <div class="modal" id="modal" hidden>
+        <div class="modal__backdrop" data-close="true"></div>
+        <article
+          class="modal__sheet"
+          id="modalSheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modalTitle"
+          aria-describedby="modalMeta"
+          tabindex="-1"
+        >
+          <button class="modal__close" id="modalClose" type="button" data-close="true" aria-label="Close this memory">✕</button>
+          <div class="modal__media media" id="modalMedia"></div>
+          <div class="modal__body">
+            <span class="chip" id="modalChip"></span>
+            <h3 class="modal__title" id="modalTitle"></h3>
+            <p class="modal__meta" id="modalMeta"></p>
+            <div class="modal__story" id="modalStory"></div>
+          </div>
+        </article>
+      </div>
+
+      <canvas id="fx" aria-hidden="true"></canvas>
+      <p class="sr-only" id="srStatus" aria-live="polite"></p>
+    </div>
+
+    <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+    <script src="script.js"></script>
+  </body>
+</html>

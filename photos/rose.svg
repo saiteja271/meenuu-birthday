@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="A deep red velvet rose">
+  <defs>
+    <radialGradient id="roseBase" cx="35%" cy="28%" r="82%">
+      <stop offset="0" stop-color="#ffc4cb"/>
+      <stop offset="0.22" stop-color="#f27b8e"/>
+      <stop offset="0.62" stop-color="#bc1b3b"/>
+      <stop offset="1" stop-color="#5c0418"/>
+    </radialGradient>
+    <linearGradient id="rosePetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb4be"/>
+      <stop offset="0.28" stop-color="#e14a66"/>
+      <stop offset="0.64" stop-color="#b51736"/>
+      <stop offset="1" stop-color="#6a061b"/>
+    </linearGradient>
+    <radialGradient id="roseInner" cx="36%" cy="27%" r="78%">
+      <stop offset="0" stop-color="#ffd2d6"/>
+      <stop offset="0.18" stop-color="#ff9eac"/>
+      <stop offset="0.55" stop-color="#d82c4c"/>
+      <stop offset="1" stop-color="#8b0b26"/>
+    </radialGradient>
+    <radialGradient id="roseGlow" cx="32%" cy="22%" r="58%">
+      <stop offset="0" stop-color="#fff0e8" stop-opacity="0.45"/>
+      <stop offset="0.5" stop-color="#ffb7c0" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#ffb7c0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="60" cy="60" r="56" fill="url(#roseBase)" stroke="#4d0213" stroke-width="1.5"/>
+  <ellipse cx="34" cy="36" rx="28" ry="22" transform="rotate(-38 34 36)" fill="url(#rosePetal)" stroke="#570216" stroke-width="1.2"/>
+  <ellipse cx="86" cy="36" rx="28" ry="22" transform="rotate(38 86 36)" fill="url(#rosePetal)" stroke="#570216" stroke-width="1.2"/>
+  <ellipse cx="26" cy="78" rx="27" ry="21" transform="rotate(-132 26 78)" fill="url(#rosePetal)" stroke="#570216" stroke-width="1.2"/>
+  <ellipse cx="94" cy="78" rx="27" ry="21" transform="rotate(132 94 78)" fill="url(#rosePetal)" stroke="#570216" stroke-width="1.2"/>
+  <ellipse cx="60" cy="94" rx="30" ry="21" fill="url(#rosePetal)" stroke="#570216" stroke-width="1.2"/>
+  <ellipse cx="60" cy="56" rx="36" ry="32" fill="url(#roseInner)" stroke="#5e0319" stroke-width="1.4"/>
+  <path d="M60 36 C79 36 90 50 87 67 C84 83 67 92 53 84 C40 77 37 60 49 52 C60 45 75 50 77 62 C79 73 67 80 58 74 C51 69 52 59 60 57 C66 55 70 61 67 65" fill="none" stroke="#a20f2d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M60 38 C78 38 88 51 85 66 C82 80 67 89 54 82 C42 76 40 61 50 54 C59 48 72 52 74 62 C76 72 65 78 58 73 C52 69 53 60 60 58 C65 57 68 61 66 64" fill="none" stroke="url(#roseInner)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M60 42 C73 42 81 52 79 64 C77 75 65 82 55 77 C47 73 45 62 52 57 C58 53 67 56 69 63" fill="none" stroke="#ffb8c1" stroke-width="2" stroke-linecap="round" opacity="0.68"/>
+  <path d="M38 31 C48 20 66 17 80 25 C91 31 98 44 97 57" fill="none" stroke="#ffd0d4" stroke-width="2.7" stroke-linecap="round" opacity="0.28"/>
+  <ellipse cx="60" cy="60" rx="56" ry="56" fill="url(#roseGlow)" opacity="0.6"/>
+</svg>
